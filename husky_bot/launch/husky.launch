@@ -14,7 +14,7 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <include file="$(find husky_bot)/launch/spawn_husky.launch">
+  <include file="$(find husky_bot)/launch/spawn.launch">
 
   </include>
 

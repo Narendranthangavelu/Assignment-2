@@ -1,21 +1,26 @@
 #!/usr/bin/env python
-# license removed for brevity
 import rospy
 import threading
 from geometry_msgs.msg import Twist
 
-
+# get linear velocity and radius of circle
 def get_values():
     linear = float(input("\n \nEnter the linear_velocity(0.5 to 3 units) = "))
     if linear < 0.5 or linear > 3.0 :
         linear = 1.0
 	rospy.logwarn("Enter values in range")
-    radius = float(input("Enter the radius(0.5 to 5 units) = "))
-    if radius < 0.5 or radius > 5.0 :
-        radius = 1.0
+    radius = float(input("Enter the radius(2 to 5 units) = "))
+    if radius < 2.0 or radius > 5.0 :
+        radius =2.0
 	rospy.logwarn("Enter values in range")
     angular = linear/radius
     return linear,angular
+
+# get keyboard interrupt to stop the circular motion
+def quit():
+    global key_press
+    i = raw_input("\n \nPress enter to stop\n \n")
+    key_press = False
 
 
 def publish():
@@ -27,6 +32,8 @@ def publish():
 	linear = 0.0
 	angular = 0.0
 	radius = 0.0
+
+	#get linear and angular velocity
 	try:
 		linear, angular = get_values()
 	except:
@@ -41,17 +48,14 @@ def publish():
 	a.start()
 	
 	#publishing the twist values
-	rate = rospy.Rate(20) # cmd_vel time out is 0.1 seconds. 20hz is given
+	rate = rospy.Rate(5) # cmd_vel time out is .25 seconds.
 	while key_press and not rospy.is_shutdown():
 		command = Twist()
 		command.linear.x = linear
 		command.angular.z = angular
 		pub.publish(command)
 		rate.sleep()
-def quit():
-    global key_press
-    i = raw_input("\n \nPress enter to stop\n \n")
-    key_press = False
+
 
 if __name__ == '__main__':
     publish()

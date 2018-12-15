@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+     <node name="circle_node" pkg="husky_bot" type="circle.py" output="screen"/>
+</launch>

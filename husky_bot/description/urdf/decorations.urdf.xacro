@@ -38,6 +38,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         </geometry>
       </visual>
     </link>
+    
+    <gazebo reference="top_chassis_link">
+      <material>Gazebo/Orange</material>
+      </gazebo>
 
     <!-- Attach chassis to the robot -->
     <joint name="top_chassis_joint" type="fixed">
@@ -71,7 +75,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         </geometry>
       </visual>
     </link>
-
+    <gazebo reference="front_bumper_link">
+    <material>Gazebo/Green</material>
+    </gazebo>
+  
     <!-- Attach front bumper -->
     <joint name="front_bumper" type="fixed">
       <origin xyz="${0.48 + husky_bumper_extend / 100.0} 0 0.091" rpy="0 0 0" />
@@ -134,6 +141,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
             </geometry>
           </collision>
         </link>
+
+    
+        
         <!-- Attach top plate -->
         <joint name="top_plate_joint" type="fixed">
           <parent link="base_link" />
@@ -153,6 +163,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
           <origin xyz="-0.4125 0 0.00672" rpy="0 0 0"/>
         </joint>
       </xacro:if>
+
 
       <xacro:unless value="$(optenv HUSKY_LARGE_TOP_PLATE false)">
         <link name="top_plate_link">
@@ -197,7 +208,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <link name="top_plate_front_link"/>
       <link name="top_plate_rear_link"/>
     </xacro:if>
-
+         <gazebo reference="top_plate_link">
+      <material>Gazebo/Green</material>
+      </gazebo>
   </xacro:macro>
 
 </robot>

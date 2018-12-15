@@ -46,6 +46,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:include filename="$(find husky_bot)/description/urdf/accessories/sick_lms1xx_mount.urdf.xacro"/>
   <xacro:include filename="$(find husky_bot)/description/urdf/accessories/sensor_arch.urdf.xacro"/>
 
+   <!-- Import Rviz colors -->
+  <xacro:include filename="$(find husky_bot)/description/urdf/materials.xacro" />
+
   <xacro:property name="M_PI" value="3.14159"/>
 
   <!-- Base Size -->
@@ -61,17 +64,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <!-- Wheel Properties -->
   <xacro:property name="wheel_length" value="0.1143" />
   <xacro:property name="wheel_radius" value="0.1651" />
-  <!-- materials -->
-  <xacro:property name="material_white">
-    <material name="white">
-      <color rgba="1 1 1 1"/>
-    </material>
-  </xacro:property>
-  <xacro:property name="material_orange">
-    <material name="orange">
-      <color rgba="1.0 0.7 0.0 1"/>
-    </material>
-  </xacro:property>
 
 
   <!-- Base link is the center of the robot's bottom plate -->
@@ -81,12 +73,14 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <geometry>
         <mesh filename="package://husky_bot/description/meshes/base_link.dae" />
       </geometry>
+      <material name="green"/>
     </visual>
     <collision>
       <origin xyz="${husky_bumper_extend / 200.0} 0 ${base_z_size/4}" rpy="0 0 0" />
       <geometry>
         <box size="${base_x_size + husky_bumper_extend / 100.0} ${base_y_size} ${base_z_size/2}"/>
       </geometry>
+      
     </collision>
     <collision>
       <origin xyz="0 0 ${base_z_size*3/4}" rpy="0 0 0" />
@@ -146,6 +140,15 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   </xacro:husky_wheel>
 
   <xacro:husky_decorate />
+
+
+  <gazebo reference="base_link">
+  <material>Gazebo/Orange</material>
+  </gazebo>
+
+   <gazebo reference="imu_link">
+  <material>Gazebo/Green</material>
+  </gazebo>
 
   <xacro:if value="$(arg laser_enabled)">
 
